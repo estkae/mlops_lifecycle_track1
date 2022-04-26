@@ -1,0 +1,15 @@
+artifact_uri: file:///F:/amudhan/mlops/loan_prediction/mlop_lifecycle1/mlruns/1/c2add7cc50434fbf9152b91f60aca479/artifacts
+end_time: 1647678187469
+entry_point_name: ''
+experiment_id: '1'
+lifecycle_stage: active
+name: ''
+run_id: c2add7cc50434fbf9152b91f60aca479
+run_uuid: c2add7cc50434fbf9152b91f60aca479
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1647678173339
+status: 3
+tags: []
+user_id: LENOVO PC

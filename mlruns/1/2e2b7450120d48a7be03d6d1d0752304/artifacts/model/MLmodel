@@ -1,0 +1,23 @@
+artifact_path: model
+flavors:
+  python_function:
+    env: conda.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    python_version: 3.8.12
+  sklearn:
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.0.2
+model_uuid: b66eb8e7fc2447e28ab7a3e8e3b52c05
+run_id: 2e2b7450120d48a7be03d6d1d0752304
+signature:
+  inputs: '[{"name": "Unnamed: 0", "type": "long"}, {"name": "Gender", "type": "long"},
+    {"name": "Married", "type": "long"}, {"name": "Education", "type": "long"}, {"name":
+    "Self_Employed", "type": "long"}, {"name": "ApplicantIncome", "type": "long"},
+    {"name": "CoapplicantIncome", "type": "double"}, {"name": "LoanAmount", "type":
+    "double"}, {"name": "Loan_Amount_Term", "type": "double"}, {"name": "Credit_History",
+    "type": "double"}, {"name": "Property_Area", "type": "long"}, {"name": "Dependents",
+    "type": "long"}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "int64", "shape": [-1]}}]'
+utc_time_created: '2022-04-12 12:05:03.129295'

@@ -1,0 +1,39 @@
+stages:
+  load_raw_data:
+    cmd: python src/data/loan_data.py --config=params.yaml
+    deps:
+    - data/external/loan.csv
+    - src/data/loan_data.py
+    outs:
+    - data/raw/loan.csv
+  split_data:
+    cmd: python src/data/split_data.py --config=params.yaml
+    deps:
+    - data/raw/loan.csv
+    - src/data/split_data.py
+    outs:
+    - data/interim/loan_test.csv
+    - data/interim/loan_train.csv
+  process_data:
+    cmd: python src/data/processing.py --config=params.yaml
+    deps:
+    - data/interim/loan_test.csv
+    - data/interim/loan_train.csv
+    - src/data/processing.py
+    outs:
+    - data/processed/loan_test.csv
+    - data/processed/loan_train.csv
+  train_model:
+    cmd: python src/models/train_model.py --config=params.yaml
+    metrics:
+    - reports/scores.json:
+        cache:false
+    - reports/params.json:
+        cache:false
+    params:
+    - random_forest.max_depth
+    - random_forest.n_estimators
+    deps:
+    - data/processed/loan_test.csv
+    - data/processed/loan_train.csv
+    - src/models/train_model.py

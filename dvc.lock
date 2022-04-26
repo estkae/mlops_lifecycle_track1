@@ -1,0 +1,73 @@
+schema: '2.0'
+stages:
+  load_raw_data:
+    cmd: python src/data/loan_data.py --config=params.yaml
+    deps:
+    - path: data/external/loan.csv
+      md5: bb87066a032be5fb8a0a23f67fbd26d6
+      size: 37656
+    - path: src/data/loan_data.py
+      md5: e39dc28c3fd2869e2d86a8aaced57099
+      size: 1467
+    outs:
+    - path: data/raw/loan.csv
+      md5: faeb4dc3b342838af61f93470fc2ae5e
+      size: 36866
+  split_data:
+    cmd: python src/data/split_data.py --config=params.yaml
+    deps:
+    - path: data/raw/loan.csv
+      md5: faeb4dc3b342838af61f93470fc2ae5e
+      size: 36866
+    - path: src/data/split_data.py
+      md5: 7793c7a761c839ea1edb9f97bd0927f3
+      size: 2301
+    outs:
+    - path: data/interim/loan_test.csv
+      md5: 914ca0089e6266ec649e69604758261a
+      size: 7652
+    - path: data/interim/loan_train.csv
+      md5: a80228661fce69ad5597e8aa7dcb12a5
+      size: 29833
+  process_data:
+    cmd: python src/data/processing.py --config=params.yaml
+    deps:
+    - path: data/interim/loan_test.csv
+      md5: 914ca0089e6266ec649e69604758261a
+      size: 7652
+    - path: data/interim/loan_train.csv
+      md5: a80228661fce69ad5597e8aa7dcb12a5
+      size: 29833
+    - path: src/data/processing.py
+      md5: 714468ea40857a26dbd32ac3f2bb146f
+      size: 2104
+    outs:
+    - path: data/processed/loan_test.csv
+      md5: b3bf2793cdd2c489917198a1e273d731
+      size: 5625
+    - path: data/processed/loan_train.csv
+      md5: 43de12694137b192cd570cc0da20fdae
+      size: 22130
+  train_model:
+    cmd: python src/models/train_model.py --config=params.yaml
+    deps:
+    - path: data/processed/loan_test.csv
+      md5: b3bf2793cdd2c489917198a1e273d731
+      size: 5625
+    - path: data/processed/loan_train.csv
+      md5: 43de12694137b192cd570cc0da20fdae
+      size: 22130
+    - path: src/models/train_model.py
+      md5: ab89182f231f7c40d711a246eb26e5f3
+      size: 5431
+    params:
+      params.yaml:
+        random_forest.max_depth: 60
+        random_forest.n_estimators: 90
+    outs:
+    - path: reports/params.json
+      md5: de92b5805788be6cf5c95754d663661a
+      size: 50
+    - path: reports/scores.json
+      md5: 9482b80cc611e0721940615face09c59
+      size: 147
