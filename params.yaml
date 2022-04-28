@@ -18,8 +18,8 @@ interim_data_config:
   test_data_csv:  data/interim/loan_test.csv
 
 random_forest: 
-  max_depth: 60
-  n_estimators: 90
+  max_depth: 10
+  n_estimators: 3
 
 model_dir: models/model.joblib
 

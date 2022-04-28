@@ -58,16 +58,16 @@ stages:
       md5: 43de12694137b192cd570cc0da20fdae
       size: 22130
     - path: src/models/train_model.py
-      md5: ab89182f231f7c40d711a246eb26e5f3
-      size: 5431
+      md5: a04190c97ddf4a87163491d36ef3d037
+      size: 5571
     params:
       params.yaml:
-        random_forest.max_depth: 60
-        random_forest.n_estimators: 90
+        random_forest.max_depth: 10
+        random_forest.n_estimators: 3
     outs:
     - path: reports/params.json
-      md5: de92b5805788be6cf5c95754d663661a
-      size: 50
+      md5: 15dd151d4588c6b8bca0e6c91f6588a4
+      size: 49
     - path: reports/scores.json
-      md5: 9482b80cc611e0721940615face09c59
-      size: 147
+      md5: abe71a2f0c558218160d6f773e239b59
+      size: 149

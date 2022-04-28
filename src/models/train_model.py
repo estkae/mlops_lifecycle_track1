@@ -136,7 +136,9 @@ def train_and_evaluate(config_path):
                 signature=signature)
 
         else:
-            mlflow.sklearn.log_model(model, "model",signature=signature)
+            #mlflow.sklearn.log_model(model, "model",signature=signature)
+            mlflow.sklearn.log_model(sk_model=model,artifact_path="model",registered_model_name=mlflow_config["registered_model_name"])
+
  
 if __name__=="__main__":
     args = argparse.ArgumentParser()
