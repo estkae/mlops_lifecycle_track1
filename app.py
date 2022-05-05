@@ -3,6 +3,7 @@ import os
 import numpy as np
 import yaml
 import joblib 
+import pandas as pd
 
 webapp_root = "webapp"
 params_path = "params.yaml"
@@ -28,6 +29,7 @@ def predict(data):
     model_dir_path = config["model_webapp_dir"]
     model = joblib.load(model_dir_path)
     prediction = model.predict(data).tolist()[0]
+    print(prediction)
     return prediction 
 
 def validate_input(dict_request):
@@ -39,15 +41,27 @@ def validate_input(dict_request):
     return True
 
 def form_response(dict_request):
-    try:
+    tr_df = pd.DataFrame([dict_request])
+    to_numeric = {'Male': 1, 'Female': 2,'Yes': 1, 'No': 2,'Graduate': 1, 'Not Graduate': 2,'Urban': 3, 'Semiurban': 2,'Rural': 1,'Y': 1, 'N': 0,'3+': 3}
+    tr_df = tr_df.applymap(lambda lable: to_numeric.get(lable) if lable in to_numeric else lable)
+    Dependents_ = pd.to_numeric(tr_df.Dependents)
+    tr_df.drop(['Dependents'], axis = 1, inplace = True)
+    tr_df = pd.concat([tr_df, Dependents_], axis = 1)
+
+    #data = tr_df.to_dict()
+    print(tr_df)
+    response = predict(tr_df)
+    return response
+"""     try:
         if validate_input(dict_request):
             data = dict_request.values()
             data = [list(map(float, data))]
             response = predict(data)
             return response
     except NotANumber as e:
-        response =  str(e)
-        return response 
+        response =  str(e) 
+        return response """
+
 
 @app.route("/", methods=["GET", "POST"])
 def index():
