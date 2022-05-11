@@ -35,3 +35,7 @@ mlflow_config:
   remote_server_uri: http://localhost:5000
 
 model_webapp_dir: webapp/model_webapp_dir/model.joblib
+
+model_monitor:
+  target_col_name: target
+  monitor_dashboard_html: reports/data_and_target_drift_dashboard.html
